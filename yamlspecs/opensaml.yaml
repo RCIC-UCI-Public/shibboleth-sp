@@ -1,0 +1,29 @@
+---
+- package: OpenSAML for shibboleth 
+  name: opensaml
+  version: 2.5.3
+  extension: tar.gz
+  vendor_source: https://shibboleth.net/downloads/c++-opensaml/2.5.3/opensaml-2.5.3.tar.gz
+  pkgname: "foundation-{{ name }}"
+  description: OpenSAML for Shibboleth {{ version }}
+  root: "{{ pkg_defaults.foundation }}/{{ name }}"
+  prefix: /opt/shibboleth
+  build:
+    configure: ./configure
+    configure_args: >
+      --with-log4shib={{ prefix }} 
+      --prefix={{ prefix }}
+    modules: 
+    target: 
+  install:
+    makeinstall: $(MAKE) prefix=$(ROOT)/{{ prefix }} install 
+    installextra: $(INSTALL) -m 644  README $(ROOT)/{{ prefix}}/README.{{ name }}
+  files:
+    - "{{ prefix }}/bin/*" 
+    - "{{ prefix }}/include/*" 
+    - "{{ prefix }}/lib/lib*" 
+    - "{{ prefix }}/lib/pkgconfig/*" 
+    - "{{ prefix }}/share/doc/*" 
+    - "{{ prefix }}/share/xml/*" 
+  requires:  foundation-log4shib  
+  buildrequires: 

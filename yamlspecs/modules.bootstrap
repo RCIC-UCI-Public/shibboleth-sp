@@ -1,0 +1,7 @@
+# Modules to build AND install locally. Order IS important
+log4shib
+xerces-c
+xml-security-c
+xmltooling
+opensaml
+fcgi

@@ -1,0 +1,26 @@
+---
+- package: XML Security for shibboleth 
+  name: xml-security-c
+  version: 1.7.3
+  extension: tar.gz
+  vendor_source: https://archive.apache.org/dist/santuario/c-library/xml-security-c-1.7.3.tar.gz
+  pkgname: "foundation-{{ name }}"
+  description: XML Tooling for Shibboleth {{ version }}
+  root: "{{ pkg_defaults.foundation }}/{{ name }}"
+  prefix: /opt/shibboleth
+  build:
+    configure: ./configure
+    configure_args: >
+      --without-xalan --disable-static 
+      --with-xerces={{ prefix }} --prefix={{ prefix }}
+    modules: 
+    target: 
+  install:
+    makeinstall: $(MAKE) prefix=$(ROOT)/{{ prefix }} install 
+    installextra: $(INSTALL) -m 644  README $(ROOT)/{{ prefix}}/README.{{ name }}
+  files:
+    - "{{ prefix }}/bin/*" 
+    - "{{ prefix }}/include/*" 
+    - "{{ prefix }}/lib/lib*" 
+  requires:  foundation-xerces-c 
+  buildrequires: foundation-xerces-c 

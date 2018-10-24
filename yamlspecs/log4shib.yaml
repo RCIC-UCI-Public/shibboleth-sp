@@ -1,0 +1,25 @@
+---
+- package: logging for shibboleth 
+  name: log4shib 
+  version: 1.0.9
+  extension: tar.gz
+  vendor_source: https://shibboleth.net/downloads/log4shib/1.0.9/log4shib-1.0.9.tar.gz 
+  pkgname: "foundation-{{ name }}"
+  description: Logging for Shibboleth {{ version }}
+  root: "{{ pkg_defaults.foundation }}/{{ name }}"
+  prefix: /opt/shibboleth
+  build:
+    configure: ./configure
+    configure_args: --disable-static --disable-doxygen --prefix={{ prefix }}
+    modules: 
+    target: 
+  install:
+    makeinstall: $(MAKE) prefix=$(ROOT)/{{ prefix }} install 
+    installextra: $(INSTALL) -m 644  README $(ROOT)/{{ prefix}}/README.{{ name }}
+  files:
+    - "{{ prefix }}/R*" 
+    - "{{ prefix }}/bin/*" 
+    - "{{ prefix }}/include/*" 
+    - "{{ prefix }}/lib/lib*" 
+    - "{{ prefix }}/lib/pkgconfig/*" 
+    - "{{ prefix }}/share/aclocal/*" 

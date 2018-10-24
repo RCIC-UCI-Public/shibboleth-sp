@@ -1,0 +1,24 @@
+---
+- package: Shibboleth SP with FastCGI 
+  name: shibboleth-sp 
+  version: 2.5.3
+  extension: tar.gz
+  vendor_source: https://shibboleth.net/downloads/service-provider/2.5.3/shibboleth-sp-2.5.3.tar.gz
+  pkgname: "foundation-{{ name }}"
+  description: Shibboleth SP (Service Provider) with fastcgi support {{ version }}
+  root: "{{ pkg_defaults.foundation }}/{{ name }}"
+  prefix: /opt/shibboleth
+  build:
+    configure: ./configure
+    configure_args: >
+      --with-log4shib={{ prefix }}  --with-fastcgi={{ pkg_defaults.foundation }}/fcgi
+      --prefix={{ prefix }}
+    modules: 
+    target: 
+  install:
+    makeinstall: $(MAKE) DESTDIR=$(ROOT) install
+    installextra: $(INSTALL) -m 644  README $(ROOT)/{{ prefix}}/README.{{ name }}
+  files:
+    - "{{ prefix }}"
+  requires:  foundation-fcgi foundation-log4shib  
+  buildrequires: foundation-fcgi foundation-log4shib 

@@ -1,0 +1,29 @@
+---
+- package: XML Tooling for shibboleth 
+  name: xmltooling 
+  version: 1.5.3
+  extension: tar.gz
+  vendor_source: https://shibboleth.net/downloads/c++-opensaml/2.5.3/xmltooling-1.5.3.tar.gz
+  pkgname: "foundation-{{ name }}"
+  description: XML Tooling for Shibboleth {{ version }}
+  root: "{{ pkg_defaults.foundation }}/{{ name }}"
+  prefix: /opt/shibboleth
+  build:
+    configure: ./configure
+    configure_args: >
+      --without-xalan --disable-static 
+      --with-log4shib={{ prefix }} --with-xerces={{ prefix }}  --with-xmlsec={{ prefix }} 
+      --prefix={{ prefix }}
+    modules: 
+    target: 
+  install:
+    makeinstall: $(MAKE) prefix=$(ROOT)/{{ prefix }} install 
+    installextra: $(INSTALL) -m 644  README $(ROOT)/{{ prefix}}/README.{{ name }}
+  files:
+    - "{{ prefix }}/include/*" 
+    - "{{ prefix }}/lib/lib*" 
+    - "{{ prefix }}/lib/pkgconfig/*" 
+    - "{{ prefix }}/share/doc/*" 
+    - "{{ prefix }}/share/xml/*" 
+  requires:  foundation-log4shib  foundation-xerces-c foundation-xml-security-c boost
+  buildrequires: foundation-log4shib  foundation-xerces-c foundation-xml-security-c boost
