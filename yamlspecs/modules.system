@@ -1,3 +1,8 @@
 # These are system packages required for build and can be installed with
 # make bootstrap
 boost-devel
+openssl-devel
+zlib-devel
+libxslt-devel
+libgd-devel
+GeoIP-devel

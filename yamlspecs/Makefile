@@ -52,6 +52,7 @@ default: $(PKGS)
 	- $(GENERATE) --query=pretar $< | /bin/sh
 	- install $$($(GENERATE) --query=patch $<) $(TMPBUILD)
 	- install  $(SOURCES)/$$($(GENERATE) --query=tarball $<) $(TMPBUILD)
+	- install  $(SOURCES)/$$($(GENERATE) --query=addsource $<) $(TMPBUILD)
 	make -C $(TMPBUILD) pkg
 	touch $@
 
