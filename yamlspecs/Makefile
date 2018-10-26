@@ -72,9 +72,11 @@ unbootstrap:
 		rpmname=$$($(GENERATE) --query=pkgname $$mod.yaml);		\
                 ALLRPMS="$$ALLRPMS $$rpmname";					\
 	  done;									\
-          yum -y erase $$ALLRPMS $(BOOTSTRAP_SYSTEM);				\
+          yum -y erase $$ALLRPMS 						\
 	)
-	
+unbootstrap-sys:
+	yum -y erase $(BOOTSTRAP_SYSTEM);					\
+
 $(TMPBUILD):
 	mkdir $(TMPBUILD)
 	install $(TEMPLATE_FILES) $(TMPBUILD)
