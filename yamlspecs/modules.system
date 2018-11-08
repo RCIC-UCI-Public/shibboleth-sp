@@ -6,3 +6,4 @@ zlib-devel
 libxslt-devel
 libgd-devel
 GeoIP-devel
+libcurl-devel
